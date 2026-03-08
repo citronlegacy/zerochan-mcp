@@ -1,30 +1,63 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# zerochan-mcp installer
+# Creates a virtual environment and installs all dependencies.
 
-# setup.sh — create a .venv and install requirements.txt into it
-# Usage: ./setup.sh
+set -e
 
-cd "$(dirname "$0")"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VENV_DIR="$SCRIPT_DIR/.venv"
 
-PY=python3
-if ! command -v "$PY" >/dev/null 2>&1; then
-  echo "python3 not found in PATH. Please install Python 3." >&2
-  exit 1
+echo "🖼️  zerochan-mcp installer"
+echo "=========================="
+
+# Check Python version
+PYTHON_CMD=""
+for cmd in python3 python; do
+    if command -v "$cmd" &>/dev/null; then
+        version=$("$cmd" -c "import sys; print(sys.version_info >= (3, 10))" 2>/dev/null)
+        if [ "$version" = "True" ]; then
+            PYTHON_CMD="$cmd"
+            break
+        fi
+    fi
+done
+
+if [ -z "$PYTHON_CMD" ]; then
+    echo "❌ Python 3.10+ is required but was not found."
+    echo "   Install from: https://www.python.org/downloads/"
+    exit 1
 fi
 
-echo "Creating virtual environment in .venv..."
-$PY -m venv .venv
+echo "✅ Found Python: $($PYTHON_CMD --version)"
 
-echo "Upgrading pip, setuptools, wheel..."
-./.venv/bin/python -m pip install --upgrade pip setuptools wheel
+# Create virtual environment
+echo ""
+echo "📦 Creating virtual environment at .venv/ ..."
+"$PYTHON_CMD" -m venv "$VENV_DIR"
 
-if [ ! -f requirements.txt ]; then
-  echo "requirements.txt not found in the project root." >&2
-  echo "You can create one or run './.venv/bin/pip install <package>' manually."
-  exit 1
-fi
+# Install dependencies
+echo "📥 Installing dependencies..."
+"$VENV_DIR/bin/pip" install --quiet --upgrade pip
+"$VENV_DIR/bin/pip" install --quiet -r "$SCRIPT_DIR/requirements.txt"
 
-echo "Installing dependencies from requirements.txt..."
-./.venv/bin/pip install -r requirements.txt
-
-echo "Setup complete. Activate the virtualenv with: source .venv/bin/activate"
+echo ""
+echo "✅ Installation complete!"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "  Next: add this to claude_desktop_config.json"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo '{'
+echo '  "mcpServers": {'
+echo '    "zerochan": {'
+echo "      \"command\": \"$VENV_DIR/bin/python\","
+echo "      \"args\": [\"$SCRIPT_DIR/server.py\"],"
+echo '      "env": {'
+echo '        "ZEROCHAN_USERNAME": "your_zerochan_username_here"'
+echo '      }'
+echo '    }'
+echo '  }'
+echo '}'
+echo ""
+echo "  Get your Zerochan username by registering at: https://www.zerochan.net"
+echo ""

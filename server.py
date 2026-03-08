@@ -428,5 +428,10 @@ async def zerochan_get_entry(params: GetEntryInput) -> str:
 # Entry Point
 # ─────────────────────────────────────────────
 
-if __name__ == "__main__":
+def main():
+    """Entry point for PyPI script installation (zerochan-mcp command)."""
     mcp.run()
+
+
+if __name__ == "__main__":
+    main()
