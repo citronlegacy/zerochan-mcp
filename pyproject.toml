@@ -1,0 +1,33 @@
+[project]
+name = "zerochan-mcp"
+version = "1.0.0"
+description = "MCP server for the Zerochan anime image board API"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+keywords = ["mcp", "zerochan", "anime", "image-board", "model-context-protocol"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "mcp[cli]>=1.0.0",
+    "httpx>=0.27.0",
+    "pydantic>=2.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/citronlegacy/zerochan-mcp"
+Repository = "https://github.com/citronlegacy/zerochan-mcp"
+"Bug Tracker" = "https://github.com/citronlegacy/zerochan-mcp/issues"
+
+[project.scripts]
+zerochan-mcp = "server:main"
+
+[tool.mcp]
+name = "io.github.citronlegacy/zerochan-mcp"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"

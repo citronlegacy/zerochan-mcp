@@ -1,0 +1,29 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.citronlegacy/zerochan-mcp",
+  "description": "MCP server for the Zerochan anime image board API. Browse the global feed, search by tags, and retrieve full entry metadata — directly from any MCP-compatible AI assistant.",
+  "repository": {
+    "url": "https://github.com/citronlegacy/zerochan-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "zerochan-mcp",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "ZEROCHAN_USERNAME",
+          "description": "Your Zerochan username. Included in every request's User-Agent header as required by the Zerochan API. The server will refuse to start without this value.",
+          "isRequired": true,
+          "isSecret": false,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}
