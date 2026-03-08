@@ -4,9 +4,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-compatible-blueviolet)](https://modelcontextprotocol.io/)
 
+<a href="https://glama.ai/mcp/servers/citronlegacy/zero-chan-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/citronlegacy/zero-chan-mcp/badge" alt="DeepGHS MCP server rating" />
+</a>
+
 A Python [MCP](https://modelcontextprotocol.io/) server wrapping the read-only [Zerochan](https://www.zerochan.net) anime image board API. Connect it to Claude Desktop, Cursor, or any MCP-compatible AI assistant to browse, search, and inspect one of the web's most comprehensively tagged anime image collections — directly from a conversation.
 
-Built as a sister server to [gelbooru-mcp](https://github.com/citronlegacy/gelbooru-mcp) and designed to be one piece of a future **MultiBoru** federated image board MCP.
+Built as a sister server to [gelbooru-mcp](https://github.com/citronlegacy/gelbooru-mcp).
 
 ---
 
